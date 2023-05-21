@@ -1,0 +1,11 @@
+{
+  "name": "p5.simplear",
+  "version": "0.7.0",
+  "description": "**p5.simpleAR** is a simple JavaScript supplement(mini-library) file to easily convert existing sketches into AR for PCs and smart devices.   <a href=\"https://youtu.be/I2mgpdLRX3g\"><img src=\"./images/keyvisual.png\" alt=\"KeyVisual\" width=\"640px\"></a>   [Concept movie.](https://youtu.be/I2mgpdLRX3g)",
+  "main": "dist/latest/p5SimpleAR.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

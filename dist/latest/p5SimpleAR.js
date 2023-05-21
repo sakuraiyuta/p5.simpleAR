@@ -1,26 +1,28 @@
-// Load scripts aframe and ar.js
-const aFrameScript = document.createElement('script');
-aFrameScript.src = 'https://aframe.io/releases/1.4.0/aframe.min.js';
-aFrameScript.onload = () => {
-  const arJSScript = document.createElement('script');
-  arJSScript.src = 'https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js';
-  arJSScript.onload = () => {
-    // touch gesture
-    const gestureScript = document.createElement('script');
-    gestureScript.src = 'https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js';
-    gestureScript.onload = () => {
-      document.body.innerHTML += `
-    <a-scene embedded vr-mode-ui="enabled: false;" arjs="debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
-      <a-assets id="a-assets"></a-assets>
-      <a-entity camera></a-entity>
-    </a-scene>
-      `;
+const initP5SimpleAR = () => {
+  // Load scripts aframe and ar.js
+  const aFrameScript = document.createElement('script');
+  aFrameScript.src = 'https://aframe.io/releases/1.4.0/aframe.min.js';
+  aFrameScript.onload = () => {
+    const arJSScript = document.createElement('script');
+    arJSScript.src = 'https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js';
+    arJSScript.onload = () => {
+      // touch gesture
+      const gestureScript = document.createElement('script');
+      gestureScript.src = 'https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js';
+      gestureScript.onload = () => {
+        document.body.innerHTML += `
+          <a-scene embedded vr-mode-ui="enabled: false;" arjs="debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+          <a-assets id="a-assets"></a-assets>
+          <a-entity camera></a-entity>
+          </a-scene>
+          `;
+      };
+      document.head.appendChild(gestureScript);
     };
-    document.head.appendChild(gestureScript);
+    document.head.appendChild(arJSScript);
   };
-  document.head.appendChild(arJSScript);
-};
-document.head.appendChild(aFrameScript);
+  document.head.appendChild(aFrameScript);
+}
 
 // API: createARCanvas
 const createARCanvas = (w, h, renderer = P2D, params) => {
@@ -228,3 +230,21 @@ function p5SimpleARMarkerFound(markerId) {
 function p5SimpleARMarkerLost(markerId) {
   // no op
 }
+
+module.exports = function() {
+  const obj = {};
+  [
+    "initP5SimpleAR",
+    "createARCanvas",
+    "createARGraphics",
+    "p5SimpleARCreateARCore",
+    "p5SimpleARMarkerVisible",
+    "p5SimpleARGetMarkerProperty",
+    "p5SimpleAREnableGesture",
+    "p5SimpleARDrawReplaced",
+    "p5SimpleARReplaceARDraw",
+    "p5SimpleARMarkerFound",
+    "p5SimpleARMarkerLost"
+  ].map((member) => eval(`obj.${member} = ${member}`));
+  return obj;
+}();
